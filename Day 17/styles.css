@@ -1,0 +1,32 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f4f4f4;
+}
+
+.palette-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.color-box {
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    width: 150px;
+}
+
+.color-box input {
+    width: 100%;
+    margin-top: 10px;
+}
+
+button {
+    margin-top: 10px;
+    padding: 5px;
+    background-color: #333;
+    color: white;
+    border: none;
+    cursor: pointer;
+}

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Palette Generator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>🎨 Color Palette Generator</h1>
+    <div class="palette-container">
+        <div class="color-box" id="colorBox1">
+            <input type="range" min="0" max="255" value="100" class="slider" id="red1">
+            <input type="range" min="0" max="255" value="100" class="slider" id="green1">
+            <input type="range" min="0" max="255" value="100" class="slider" id="blue1">
+            <button onclick="copyHexCode(1)">Copy Hex</button>
+            <p id="hex1"></p>
+        </div>
+        <!-- Add more color boxes as needed -->
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
