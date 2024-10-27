@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daily Mood Tracker</title>
+  <style>
+    /* Basic styling for layout and mood buttons */
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: #f4f4f9;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      color: #333;
+    }
+    .mood-buttons {
+      display: flex;
+      gap: 10px;
+      margin: 20px 0;
+    }
+    .mood-buttons button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      color: #fff;
+    }
+    .happy { background-color: #ffd700; }
+    .sad { background-color: #4682b4; }
+    .neutral { background-color: #808080; }
+    #mood-history {
+      margin-top: 20px;
+      width: 100%;
+      max-width: 400px;
+    }
+    .mood-entry {
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+    }
+    #mood-image {
+      margin-top: 20px;
+      max-width: 100%;
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Daily Mood Tracker</h1>
+  
+  <div class="mood-buttons">
+    <button class="happy" onclick="saveMood('Happy')">😊 Happy</button>
+    <button class="sad" onclick="saveMood('Sad')">😢 Sad</button>
+    <button class="neutral" onclick="saveMood('Neutral')">😐 Neutral</button>
+  </div>
+
+  <div id="mood-history">
+    <h2>Mood History</h2>
+  </div>
+
+  <!-- Image that will display based on the selected mood -->
+  <img id="mood-image" alt="Mood Image" style="display:none;">
+
+  <script>
+    function saveMood(mood) {
+      const date = new Date().toISOString().split('T')[0];
+      const moodEntry = { date, mood };
+
+      const moodHistory = JSON.parse(localStorage.getItem('moodHistory')) || [];
+      const existingEntryIndex = moodHistory.findIndex(entry => entry.date === date);
+      if (existingEntryIndex >= 0) {
+        moodHistory[existingEntryIndex] = moodEntry;
+      } else {
+        moodHistory.push(moodEntry);
+      }
+
+      localStorage.setItem('moodHistory', JSON.stringify(moodHistory));
+
+      displayMoodHistory();
+      displayMoodImage(mood);  // Display an image based on the mood
+    }
+
+    function displayMoodHistory() {
+      const moodHistoryDiv = document.getElementById('mood-history');
+      moodHistoryDiv.innerHTML = '<h2>Mood History</h2>';
+      const moodHistory = JSON.parse(localStorage.getItem('moodHistory')) || [];
+      moodHistory.forEach(entry => {
+        const moodEntryDiv = document.createElement('div');
+        moodEntryDiv.classList.add('mood-entry');
+        moodEntryDiv.textContent = `${entry.date}: ${entry.mood}`;
+        moodHistoryDiv.appendChild(moodEntryDiv);
+      });
+    }
+
+    function displayMoodImage(mood) {
+      const moodImage = document.getElementById('mood-image');
+      moodImage.style.display = 'block';
+      
+      // Display specific images for each mood
+      if (mood === 'Happy') {
+        moodImage.src = 'https://via.placeholder.com/400x200.png?text=Feeling+Happy!';
+      } else if (mood === 'Sad') {
+        moodImage.src = 'https://via.placeholder.com/400x200.png?text=Feeling+Sad';
+      } else if (mood === 'Neutral') {
+        moodImage.src = 'https://via.placeholder.com/400x200.png?text=Feeling+Neutral';
+      } else {
+        moodImage.style.display = 'none';
+      }
+    }
+
+    displayMoodHistory();
+  </script>
+
+</body>
+</html> 
